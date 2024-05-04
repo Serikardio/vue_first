@@ -1,6 +1,6 @@
 <template>
- <div class="w-58 h-12 flex items-center justify-center">
-    <p>Oleg</p>
+ <div class="flex items-center justify-center">
+    <h1>Oleg</h1>
  </div>
 </template>
 
