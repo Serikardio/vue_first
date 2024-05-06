@@ -17,8 +17,7 @@ export default {
   data() {
     return {
       numbers: [1,2,3,4,5,6,7,8,9,10],
-      filtredNums: [],
-      multi: 3
+      sum: 0,
     };
   },
   computed: {
@@ -37,14 +36,23 @@ export default {
     umnozhit() {
         const res = [];
         for (let i = 0; i < this.numbers.length; i++){
-            res.push(this.numbers[i] * this.multi);
+            res.push(this.numbers[i] * 3);
         }
         return res;
         },
 
     //   return this.numbers.map(item => item * 3);
     summ() {
-      return this.numbers.reduce((acc, item ) => acc + item , 0);
+        const res = [];
+        let sum = 0;
+
+        for (let i = 0; i < this.numbers.length; i++) {
+            sum += this.numbers[i];
+            res.push(sum);
+        }
+    return res;
+
+    //   return this.numbers.reduce((acc, item ) => acc + item , 0);
     },
 },
 
@@ -53,11 +61,6 @@ created(){
 },
 
 methods: {
-    Num(){
-        for (let i = 0; i < this.numbers.length; i++){
-            if (this.numbers[i] > 5) {this.filtredNums.push(this.numbers[i]);}
-        }
-    }
   }
 
 };
