@@ -1,15 +1,11 @@
 <template>
     <div class="flex flex-col">
-
-        <div v-for="number in more" :key="number">{{ number }}</div>
         <div class="mx-4">{{ umnozhit }}</div>
         <div class="">{{ summ }}</div>
-
-
-        <div class="" v-for="(number) in filtredNums" :key="number">{{ number }}</div>
         <div>{{ more }}</div>
 
-        <div><input v-bind="Text_rus" type="text"></div>
+        <div><input class="border" v-bind="Text_rus" type="numbers"></div>
+        <div></div>
     </div>
 </template>
 
@@ -19,7 +15,7 @@ export default {
   data() {
     return {
       numbers: [1,2,3,4,5,6,7,8,9,10],
-      num_rus: (Один, два, три, четыре, пять, шесть, семь, восемь, девять, десять)
+    //   num_rus: (Один, два, три, четыре, пять, шесть, семь, восемь, девять, десять),
     };
   },
   computed: {
@@ -62,6 +58,7 @@ created(){
 
 methods: {
     Text_rus(){
+        
     }
   }
 };
