@@ -8,6 +8,8 @@
 
         <div class="" v-for="(number) in filtredNums" :key="number">{{ number }}</div>
         <div>{{ more }}</div>
+
+        <div><input v-bind="Text_rus" type="text"></div>
     </div>
 </template>
 
@@ -17,7 +19,7 @@ export default {
   data() {
     return {
       numbers: [1,2,3,4,5,6,7,8,9,10],
-      sum: 0,
+      num_rus: (Один, два, три, четыре, пять, шесть, семь, восемь, девять, десять)
     };
   },
   computed: {
@@ -43,17 +45,15 @@ export default {
 
     //   return this.numbers.map(item => item * 3);
     summ() {
-        const res = [];
         let sum = 0;
-
         for (let i = 0; i < this.numbers.length; i++) {
             sum += this.numbers[i];
-            res.push(sum);
         }
-    return res;
+    return sum;
 
     //   return this.numbers.reduce((acc, item ) => acc + item , 0);
     },
+    // %2
 },
 
 created(){
@@ -61,7 +61,8 @@ created(){
 },
 
 methods: {
+    Text_rus(){
+    }
   }
-
 };
 </script>
