@@ -4,7 +4,10 @@
         <div class="">{{ summ }}</div>
         <div>{{ more }}</div>
 
-        <div><input class="border" v-bind="Text_rus" type="numbers"></div>
+        <div>
+            <input class="border" v-model="inputNumber" @input="Text_rus" type="number">
+            <p v-if="convertedWord">Число "{{ inputNumber }}", т.e "{{ convertedWord }}"</p>
+        </div>
         <div></div>
     </div>
 </template>
@@ -15,7 +18,9 @@ export default {
   data() {
     return {
       numbers: [1,2,3,4,5,6,7,8,9,10],
-    //   num_rus: (Один, два, три, четыре, пять, шесть, семь, восемь, девять, десять),
+      num_rus: ['Один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'десять'],
+      inputNumber:'',
+      convertedWord:''
     };
   },
   computed: {
@@ -58,7 +63,12 @@ created(){
 
 methods: {
     Text_rus(){
-        
+        const index = this.numbers.indexOf(parseInt(this.inputNumber));
+        if (index !== -1){
+            this.convertedWord = this.num_rus[index];
+        } else{
+            this.convertedWord = '';
+        }
     }
   }
 };
