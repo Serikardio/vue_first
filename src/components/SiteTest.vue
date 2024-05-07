@@ -8,7 +8,8 @@
             <input class="border" v-model="inputNumber" @input="Text_rus" type="number">
             <p v-if="convertedWord">Число "{{ inputNumber }}", т.e "{{ convertedWord }}"</p>
         </div>
-        <div></div>
+        <div>{{ ltt }}</div>
+        <div>{{ Text_rus_stroke }}</div>
     </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
       numbers: [1,2,3,4,5,6,7,8,9,10],
       num_rus: ['Один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'десять'],
       inputNumber:'',
-      convertedWord:''
+      convertedWord:'',
     };
   },
   computed: {
@@ -54,13 +55,37 @@ export default {
 
     //   return this.numbers.reduce((acc, item ) => acc + item , 0);
     },
+    ltt(){
+        const res = [];
+        for (let i = 0; i < this.numbers.length; i++){
+            if (this.numbers[i] % 2 == 0) {res.push(this.numbers[i]);}
+        }
+
+        return res;
+    },
+    
+    Text_rus_stroke() {
+    const res = [];
+    for (let i = 0; i < this.ltt.length; i++) {
+        const index = this.numbers.indexOf(parseInt(this.ltt[i]));
+        if (index !== -1) {
+            res.push(this.num_rus[index]);
+        }
+    }
+    // this.convertedWords = convertedWords;
+    return res;
+    },
     // %2
+    
 },
 
 created(){
     // this.Num()
 },
 
+mounted() {
+        this.Text_rus_stroke(); // Вызываем метод Text_rus при загрузке страницы
+    },
 methods: {
     Text_rus(){
         const index = this.numbers.indexOf(parseInt(this.inputNumber));
@@ -69,7 +94,7 @@ methods: {
         } else{
             this.convertedWord = '';
         }
-    }
+    },
   }
 };
 </script>

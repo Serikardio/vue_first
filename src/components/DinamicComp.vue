@@ -17,13 +17,13 @@
                 Care
             </button>
         </div>
-        <div class="fixed w-full" v-show="show['b1']">
+        <div class="flex w-full" v-show="show['b1']">
             <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
         </div>
-        <div class="fixed w-full" v-show="show['b2']">
+        <div class="flex w-full" v-show="show['b2']">
             <p>BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB</p>
         </div>
-        <div class="fixed w-full" v-show="show['b3']">
+        <div class="flex w-full" v-show="show['b3']">
             <p>zzzzzzzzzzzzzzzzzzzzzZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ</p>
         </div>
     </div>
