@@ -18,7 +18,18 @@
             </button>
         </div>
         <div class="flex w-full" v-show="show['b1']">
-            <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+            <div>
+                oleg 
+            </div>
+            <div>
+                petrov
+            </div>
+            <div>
+                smirnow
+            </div>
+            <div>
+                И я
+            </div>
         </div>
         <div class="flex w-full" v-show="show['b2']">
             <p>BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB</p>
@@ -30,7 +41,12 @@
 </template>
 
 <script>
+import SiteTest from './SiteTest.vue';
+
 export default{
+    comments:{
+        SiteTest,
+    },
     data(){
         return{
             show:{
