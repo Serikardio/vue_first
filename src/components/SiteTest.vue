@@ -63,19 +63,43 @@ export default {
 
         return res;
     },
-    
+
     Text_rus_stroke() {
-    const res = [];
-    for (let i = 0; i < this.ltt.length; i++) {
-        const index = this.numbers.indexOf(parseInt(this.ltt[i]));
+    return this.ltt.reduce((obj, char) => {
+        const index = this.numbers.indexOf(parseInt(char));
         if (index !== -1) {
-            res.push(this.num_rus[index]);
+            obj[this.numbers[index]] = this.num_rus[index];
         }
-    }
-    // this.convertedWords = convertedWords;
-    return res;
-    },
-    // %2
+        return obj;
+    }, {});
+},
+
+
+
+//     Text_rus_stroke() {
+//         let obj = {};
+
+//         for (let i = 0; i < this.ltt.length; i++) {
+//             const index = this.numbers.indexOf(parseInt(this.ltt[i]));
+//             if (index !== -1) {
+//                 obj[this.numbers[index]] = this.num_rus[index];
+//             }
+//         }
+//         return obj;
+// },
+
+
+
+//     Text_rus_stroke() {
+//     const res = [];
+//     for (let i = 0; i < this.ltt.length; i++) {
+//         const index = this.numbers.indexOf(parseInt(this.ltt[i]));
+//         if (index !== -1) {
+//             res.push( this.numbers[index], this.num_rus[index] );
+//         }
+//     }
+//     return res;
+// }
     
 },
 
