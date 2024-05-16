@@ -8,9 +8,10 @@
             <input class="border" v-model="inputNumber" @input="Text_rus" type="number">
             <p v-if="convertedWord">Число "{{ inputNumber }}", т.e "{{ convertedWord }}"</p>
         </div>
-        <div>{{ ltt }}</div>
+        <div>{{ ltt }} {{summ}}</div>
         <div>{{ Text_rus_stroke }}</div>
     </div>
+
 </template>
 
 <script>
@@ -113,7 +114,7 @@ created(){
 },
 
 mounted() {
-        this.Text_rus_stroke(); // Вызываем метод Text_rus при загрузке страницы
+        // this.Text_rus_stroke(); // Вызываем метод Text_rus при загрузке страницы
     },
 methods: {
     Text_rus(){

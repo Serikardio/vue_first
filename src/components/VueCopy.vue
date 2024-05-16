@@ -1,19 +1,23 @@
 <template>
   <div>
-    <p class="text-2xl">Vue test</p>
+    <p class="text-2xl" >Vue test</p>
+    <div>{{ id_num}}</div>
   </div>
 </template>
+
 <script>
   export default {
-
-    data(){
-      return{
+    data() {
+      return {
         tags: [],
         id_num: 0,
       };
     },
 
     computed: {
+      groupedTags() {
+        return this.groupBySection(this.tags);
+      },
     },
 
     mounted() {
@@ -21,13 +25,13 @@
       this.createTag({name: "tag", section: "task"});
       this.createTag({name: "tag", section: "sales"});
       this.createTag({name: "tag", section: "task"});
-      const groupedTags = this.groupBySection(this.tags);
-      console.log(groupedTags);
 
-      this.domTags(groupedTags);
+      console.log(this.groupedTags);
 
-      this.updateTag(3, "NEW")
-      this.removeTag(2)
+      this.domTags(this.groupedTags);
+
+      this.updateTag(3, "NEW");
+      this.removeTag(2);
 
       console.log(this.tags);
     },
@@ -63,37 +67,29 @@
         }, {});
       },
       domTags(res) {
+        const container = document.createElement('div');
+        container.id = 'tagContainer';
+        document.body.appendChild(container);
 
-      const container = document.createElement('div');
-      container.id = 'tagContainer';
-
-      document.body.appendChild(container);
-
-      for (const section in res) {
-
+        for (const section in res) {
           const sectionDiv = document.createElement('div');
           sectionDiv.className = 'section';
 
           const sectionHeader = document.createElement('h2');
-          sectionHeader.textContent ="Section: " + section;
+          sectionHeader.textContent = "Section: " + section;
           sectionDiv.appendChild(sectionHeader);
 
           const tagsList = document.createElement('ul');
           res[section].forEach(tag => {
-
-              const tagItem = document.createElement('li');
-              tagItem.textContent = "Name: " + tag.name;
-              tagsList.appendChild(tagItem);
-
-              // const tagID = document.createElement('li');
-              // tagID.textContent = tag.id;
-              // tagsList.appendChild(tagID);
+            const tagItem = document.createElement('li');
+            tagItem.textContent = "Name: " + tag.name;
+            tagsList.appendChild(tagItem);
           });
 
           sectionDiv.appendChild(tagsList);
           container.appendChild(sectionDiv);
-      }
-    },
+        }
+      },
     },
   };
 </script>
