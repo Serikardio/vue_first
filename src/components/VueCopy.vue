@@ -6,51 +6,40 @@
       <p class="text-2xl font-medium pb-2">Search</p>
 
       <div class="flex items-center ">
-        <input v-model="srch" class="border rounded flex items-center px-2" placeholder="Name" >
-        <button class="flex items-center justify-center mx-1 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">Search</button>
-      </div>
-
+        <input v-model="srh_text" class="border rounded flex items-center px-2" placeholder="Name">
+       </div>
     </div>
 
     <div>
+      <p class="font-medium text-2xl my-1.5">Create a Tag</p>
 
-      <p class="font-medium text-2xl my-1.5" >Create a Tag</p>
-
-      <input v-model="new_name" class="border rounded flex items-center px-2 mb-2" placeholder="Name" >
-      <input v-model="new_section" class="border rounded flex items-center px-2 mb-2 " placeholder="Section" >
+      <input v-model="new_name" class="border rounded flex items-center px-2 mb-2" placeholder="Name">
+      <input v-model="new_section" class="border rounded flex items-center px-2 mb-2" placeholder="Section">
 
       <div class="flex">
-          <button v-on:click="addTag" class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700" >Create</button>
-          <button v-on:click="DeleteTag" class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700" >Delete</button>
+        <button v-on:click="addTag" class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">Create</button>
+        <button v-on:click="DeleteTag" class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">Delete</button>
       </div>
-
     </div>
 
-    <div v-if="groupedTags">
-      <div v-for="(tags, section) in groupedTags" v-bind:key="section" class="section">
-
-        <h2 class="font-medium my-1 ">Section: {{ section }}</h2>
+    <div v-if="filteredTags">
+      <div v-for="(tags, section) in filteredTags" v-bind:key="section" class="section">
+        <h2 class="font-medium my-1">Section: {{ section }}</h2>
         <ul>
-
           <li class="font-normal ml-4" v-for="tag in tags" :key="tag.id">
-
-           <div class="flex items-center">
+            <div class="flex items-center">
               Name: {{ tag.name }}
               <button @click="removeTag(tag.id)" class="flex items-center justify-center border rounded p-0.5 w-5 h-5 ml-1">X</button>
               <button @click="Selected(tag.id)" class="flex items-center justify-center border rounded p-0.5 w-5 h-5 ml-1">Y</button>
             </div>
-
             <div v-if="selectedID === tag.id" class="flex items-center">
               <input v-model="name" class="border rounded flex items-center px-2 mb-2" placeholder="Name">
-              <button @click="updateTag(tag.id)" >Обновить</button>
+              <button @click="updateTag(tag.id)">Update</button>
             </div>
-
           </li>
-
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -60,11 +49,11 @@ export default {
     return {
       tags: [],
       id_num: 0,
-      name:"",
+      name: "",
       new_name: "",
       new_section: "",
       selectedID: null,
-      srch: "",
+      srh_text: "",
     };
   },
 
@@ -72,29 +61,20 @@ export default {
     groupedTags() {
       return this.groupBySection(this.tags);
     },
+    filteredTags() {
+      if (!this.srh_text) {
+        return this.groupedTags;
+      }
+      let filtered = this.tags.filter(tag => tag.name.toLowerCase().includes(this.srh_text.toLowerCase()));
+      return this.groupBySection(filtered);
+    }
   },
 
   mounted() {
-    // this.createTag({name: "tag", section: "sales"});
-    // this.createTag({name: "tag", section: "task"});
-    // this.createTag({name: "tag", section: "sales"});
-    // this.createTag({name: "tag", section: "task"});
-    //
-    // console.log(this.groupedTags);
-    //
-    // this.updateTag(3, "NEW");
-    // this.removeTag(2);
-    //
-    // console.log(this.tags.length);
-
     this.loadTags();
   },
 
   methods: {
-    SearchTeg(){
-
-    },
-
     DeleteTag() {
       let section = this.new_section;
       let name = this.new_name;
@@ -108,7 +88,6 @@ export default {
       const newName = this.new_name.trim();
       const newSection = this.new_section.trim();
       if (newName !== '' && newSection !== '') {
-        // Проверяем, что такого имени в данной секции ещё нет
         const existingTag = this.tags.find(tag => tag.name === newName && tag.section === newSection);
         if (!existingTag) {
           this.createTag({ name: newName, section: newSection });
@@ -119,7 +98,7 @@ export default {
       }
     },
 
-    createTag({section, name}) {
+    createTag({ section, name }) {
       let tag = {
         id: ++this.id_num,
         name: name,
@@ -142,7 +121,8 @@ export default {
       if (tag) {
         tag.name = this.name;
         this.saveTags()
-        this.name = '';
+        this.name = ''
+        this.selectedID = null;
       }
     },
 
@@ -151,7 +131,7 @@ export default {
         if (!res[tag.section]) {
           res[tag.section] = [];
         }
-        res[tag.section].push({name: tag.name, id: tag.id});
+        res[tag.section].push({ name: tag.name, id: tag.id });
         return res;
       }, {});
     },
@@ -176,7 +156,6 @@ export default {
       }
       this.saveTags();
     },
-
 
   },
 };
