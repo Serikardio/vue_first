@@ -4,6 +4,7 @@
     <DinamicComp />
     <SiteTest />
     <VueCopy />
+
   </div>
 </template>
 
