@@ -1,18 +1,15 @@
 <template>
-  <div id="app" class="flex">
-    <VueCopy />
-    <VueTest />
+  <div id="app">
+    <ToDoApp></ToDoApp>
   </div>
 </template>
 
 <script>
-import VueCopy from "@/components/VueCopy.vue";
-import VueTest from "@/components/VueTest.vue";
+import ToDoApp from "@/components/ToDoApp.vue";
 
 export default {
   components: {
-    VueTest,
-    VueCopy,
+    ToDoApp,
   },
   data() {
     return {
