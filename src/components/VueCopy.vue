@@ -11,9 +11,26 @@
       </div>
     </div>
 
-    <div>
+    <div class="my-2">
       <p class="text-2xl font-medium pb-2">Filter</p>
+      <div class="flex items-center">
+        <select v-model="status" class="w-48 h-8 border rounded ">
+          <option value="true" >Выполненно</option>
+          <option value="false" >Не выполненно</option>
+        </select>
+      </div>
+      <div>
+        <button
+            @click="applyFilter"
+            class="flex items-center justify-center mt-2 mx-0.5 w-16 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700" >
+          Поиск
+        </button>
+      </div>
+    </div>
 <!-- Создать выбор по фильтру выполненно или нет-->
+
+    <div>
+      {{ FillTags }}
     </div>
 
     <div>
@@ -61,7 +78,7 @@
                 {{ tag.name }}
               </div>
 <!--              2 кнопки выполненно или нет, 1 из них скрыта при false-->
-              <button v-show="tag.ready" class="">
+              <button v-if="tag.ready" @click="changeIcon(tag.id)" >
 <!--                Что то на англ-->
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-400" viewBox="0 -0.5 25 25" fill="none">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -69,8 +86,9 @@
                 </svg>
               </button>
 
-              <button v-show="!tag.ready" @click="changeIcon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 -0.5 25 25" fill="none">
+<!--              krestik-->
+              <button v-else @click="changeIcon(tag.id)" >
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-400" viewBox="0 -0.5 25 25" fill="none">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M9.34477 14.0937C9.05182 14.3866 9.05173 14.8614 9.34457 15.1544C9.63741 15.4473 10.1123 15.4474 10.4052 15.1546L9.34477 14.0937ZM13.0302 12.5306C13.3232 12.2377 13.3233 11.7629 13.0304 11.4699C12.7376 11.177 12.2627 11.1769 11.9698 11.4697L13.0302 12.5306ZM11.9695 11.47C11.6767 11.763 11.6769 12.2379 11.9699 12.5307C12.2629 12.8235 12.7378 12.8233 13.0305 12.5303L11.9695 11.47ZM15.6545 9.90427C15.9473 9.61127 15.9471 9.1364 15.6541 8.84361C15.3611 8.55083 14.8862 8.55101 14.5935 8.84402L15.6545 9.90427ZM13.0302 11.4697C12.7373 11.1769 12.2624 11.177 11.9696 11.4699C11.6767 11.7629 11.6768 12.2377 11.9698 12.5306L13.0302 11.4697ZM14.5948 15.1546C14.8877 15.4474 15.3626 15.4473 15.6554 15.1544C15.9483 14.8614 15.9482 14.3866 15.6552 14.0937L14.5948 15.1546ZM11.9696 12.5304C12.2624 12.8233 12.7373 12.8234 13.0302 12.5306C13.3232 12.2377 13.3233 11.7629 13.0304 11.4699L11.9696 12.5304ZM10.4054 8.84392C10.1126 8.55097 9.63772 8.55088 9.34477 8.84371C9.05182 9.13655 9.05173 9.61143 9.34457 9.90437L10.4054 8.84392ZM10.4052 15.1546L13.0302 12.5306L11.9698 11.4697L9.34477 14.0937L10.4052 15.1546ZM13.0305 12.5303L15.6545 9.90427L14.5935 8.84402L11.9695 11.47L13.0305 12.5303ZM11.9698 12.5306L14.5948 15.1546L15.6552 14.0937L13.0302 11.4697L11.9698 12.5306ZM13.0304 11.4699L10.4054 8.84392L9.34457 9.90437L11.9696 12.5304L13.0304 11.4699Z" fill="currentColor"/>
                 </svg>
@@ -99,9 +117,12 @@
     </div>
   </div>
 </template>
-
+<!--
+ту ду в компани а затем в пропс
+props js vue js
+validation props
+ -->
 <script>
-
 export default {
   data() {
     return {
@@ -112,7 +133,8 @@ export default {
       new_section: "",
       selectedID: null,
       srh_text: "",
-
+      status: "true",
+      FillTags: []
     };
   },
 
@@ -128,13 +150,7 @@ export default {
 
       let filtered = this.tags.filter(tag => tag.name.toLowerCase().includes(this.srh_text.toLowerCase()));
       return this.groupBySection(filtered);
-    }
-
-    //
-    // updated(){
-    //     this.srh_text = this.srh_text.replaceAll(' ', '');
-    //     return this.srh_text()
-    // },
+    },
   },
 
   mounted() {
@@ -142,8 +158,20 @@ export default {
   },
 
   methods: {
-    changeIcon(){
+    // Создать метод который бы искал в тегах ready и если они тру то сортировал бы в отдельный масив
 
+    applyFilter() {
+      const readyValue = this.status === "true";
+      this.FillTags = this.tags.filter(tag => tag.ready === readyValue);
+
+    },
+
+    changeIcon(id){
+      let tag = this.tags.find(tag => tag.id === id);
+      if (tag) {
+        tag.ready = !tag.ready;
+        this.saveTags()
+      }
     },
     toggleDetails(tagId) {
       this.selectedID = this.selectedID === tagId ? null : tagId;
@@ -175,7 +203,7 @@ export default {
     createTag({ section, name }) {
       let tag = {
         id: ++this.id_num,
-        name: name,
+        name,
         section,
         ready: false,
       };
@@ -206,7 +234,8 @@ export default {
         if (!res[tag.section]) {
           res[tag.section] = [];
         }
-        res[tag.section].push({ name: tag.name, id: tag.id });
+
+        res[tag.section].push(tag);
         return res;
       }, {});
     },
