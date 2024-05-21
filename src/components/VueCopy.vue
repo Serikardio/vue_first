@@ -115,6 +115,7 @@
         </ul>
       </div>
     </div>
+    <ToDo :tago="tags"></ToDo>
   </div>
 </template>
 <!--
@@ -123,7 +124,10 @@ props js vue js
 validation props
  -->
 <script>
+import ToDo from "@/components/To-Do.vue";
+
 export default {
+  components: {ToDo},
   data() {
     return {
       tags: [],
@@ -252,14 +256,14 @@ export default {
       }
     },
 
-    Selected(tagId) {
-      if (this.selectedID === tagId) {
-        this.selectedID = null;
-      } else {
-        this.selectedID = tagId;
-      }
-      this.saveTags();
-    },
+    // Selected(tagId) {
+    //   if (this.selectedID === tagId) {
+    //     this.selectedID = null;
+    //   } else {
+    //     this.selectedID = tagId;
+    //   }
+    //   this.saveTags();
+    // },
 
   },
 };
