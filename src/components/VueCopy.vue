@@ -58,13 +58,15 @@
     <ToDoApp :filteredTags="filteredTags"  :selectedID="selectedID"
              :new_name="new_name" @toggleTextDecoration="toggleTextDecoration"
              @changeIcon="changeIcon" @removeTag="removeTag"
-             @toggleDetails="toggleDetails" @addTag="addTag" ></ToDoApp>
+             @toggleDetails="toggleDetails" @addTag="addTag"
+             @updateTag="updateTag" @DeleteTag="DeleteTag"
+    ></ToDoApp>
 </div>
   <!--  </div>-->
 </template>
 
 <script>
-import ToDoApp from "@/components/ToDoApp.vue";
+import ToDoApp from "@/components/ToDoApp.vue"
 
 export default {
   components: {ToDoApp},
@@ -103,8 +105,6 @@ export default {
   },
 
   methods: {
-    // Создать метод который бы искал в тегах ready и если они тру то сортировал бы в отдельный масив
-
     applyFilter() {
       const readyValue = this.status === "true";
       this.FillTags = this.tags.filter(tag => tag.ready === readyValue);
@@ -206,15 +206,14 @@ export default {
       this.textDecoration[id] = this.textDecoration[id] === 'none' ? 'line-through' : 'none';
     },
 
-    // Selected(tagId) {
-    //   if (this.selectedID === tagId) {
-    //     this.selectedID = null;
-    //   } else {
-    //     this.selectedID = tagId;
-    //   }
-    //   this.saveTags();
-    // },
-
+    Selected(tagId) {
+      if (this.selectedID === tagId) {
+        this.selectedID = null;
+      } else {
+        this.selectedID = tagId;
+      }
+      this.saveTags();
+    },
   },
 };
 </script>
