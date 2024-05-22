@@ -82,7 +82,7 @@
       },
       updateTag(id){
         this.$emit("updateTag", id);
-      }
+      },
     }
   };
 </script>

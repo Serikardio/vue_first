@@ -1,21 +1,19 @@
 <template>
   <div id="app">
-    <ToDoApp></ToDoApp>
+    <VueCopy></VueCopy>
   </div>
 </template>
 
 <script>
-import ToDoApp from "@/components/ToDoApp.vue";
+import VueCopy from "@/components/VueCopy.vue";
 
 export default {
   components: {
-    ToDoApp,
+    VueCopy,
   },
   data() {
     return {
-
     };
   },
 }
-
 </script>

@@ -1,68 +1,73 @@
 <template>
-  <div class="ml-2">
-    <p class="text-3xl pb-4">Vue test</p>
+<!--  <div class="ml-2">-->
+<!--    <p class="text-3xl pb-4">Vue test</p>-->
 
-    <div>
-      <p class="text-2xl font-medium pb-2">Search</p>
+<!--    <div>-->
+<!--      <p class="text-2xl font-medium pb-2">Search</p>-->
 
-      <div class="flex items-center">
-        <input v-model="srh_text" class="border rounded flex items-center px-2" placeholder="Name">
-<!--        @keydown.space.prevent -->
-      </div>
-    </div>
+<!--      <div class="flex items-center">-->
+<!--        <input v-model="srh_text" class="border rounded flex items-center px-2" placeholder="Name">-->
+<!--&lt;!&ndash;        @keydown.space.prevent &ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <div class="my-2">
-      <p class="text-2xl font-medium pb-2">Filter</p>
-      <div class="flex items-center">
-        <select v-model="status" class="w-48 h-8 border rounded ">
-          <option value="true" >Выполненно</option>
-          <option value="false" >Не выполненно</option>
-        </select>
-      </div>
-      <div>
-        <button
-            @click="applyFilter"
-            class="flex items-center justify-center mt-2 mx-0.5 w-16 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700" >
-          Поиск
-        </button>
-      </div>
-    </div>
-<!-- Создать выбор по фильтру выполненно или нет-->
+<!--    <div class="my-2">-->
+<!--      <p class="text-2xl font-medium pb-2">Filter</p>-->
+<!--      <div class="flex items-center">-->
+<!--        <select v-model="status" class="w-48 h-8 border rounded ">-->
+<!--          <option value="true" >Выполненно</option>-->
+<!--          <option value="false" >Не выполненно</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <button-->
+<!--            @click="applyFilter"-->
+<!--            class="flex items-center justify-center mt-2 mx-0.5 w-16 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700" >-->
+<!--          Поиск-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--&lt;!&ndash; Создать выбор по фильтру выполненно или нет&ndash;&gt;-->
 
-    <div>
-      {{ FillTags }}
-    </div>
+<!--    <div>-->
+<!--      {{ FillTags }}-->
+<!--    </div>-->
 
-    <div>
-      <p class="font-medium text-2xl my-1.5">Create a Tag</p>
+<!--    <div>-->
+<!--      <p class="font-medium text-2xl my-1.5">Create a Tag</p>-->
 
-      <input v-model="new_name" class="border rounded flex items-center px-2 mb-2" placeholder="Name">
-      <input v-model="new_section" class="border rounded flex items-center px-2 mb-2" placeholder="Section">
+<!--      <input v-model="new_name" class="border rounded flex items-center px-2 mb-2" placeholder="Name">-->
+<!--      <input v-model="new_section" class="border rounded flex items-center px-2 mb-2" placeholder="Section">-->
 
-      <div class="flex">
+<!--      <div class="flex">-->
 
-        <button v-on:click="addTag"
-                class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">
-          Create
-        </button>
+<!--        <button v-on:click="addTag"-->
+<!--                class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">-->
+<!--          Create-->
+<!--        </button>-->
 
-        <button v-on:click="DeleteTag"
-                class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">
-          Delete
-        </button>
+<!--        <button v-on:click="DeleteTag"-->
+<!--                class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">-->
+<!--          Delete-->
+<!--        </button>-->
 
-      </div>
-    </div>
+<!--      </div>-->
+<!--    </div>-->
 
-    <ToDo  :filteredTags="filteredTags" :selectedID="selectedID" @changeIcon="changeIcon" @removeTag="removeTag" @toggleDetails="toggleDetails" ></ToDo>
-  </div>
+<div>
+    <ToDoApp :filteredTags="filteredTags"  :selectedID="selectedID"
+             :new_name="new_name"
+             @changeIcon="changeIcon" @removeTag="removeTag"
+             @toggleDetails="toggleDetails" @addTag="addTag"> </ToDoApp>
+</div>
+  <!--  </div>-->
 </template>
 
 <script>
-import ToDo from "@/components/To-Do.vue";
+import ToDoApp from "@/components/ToDoApp.vue";
 
 export default {
-  components: {ToDo},
+  components: {ToDoApp},
   data() {
     return {
       tags: [],
@@ -73,7 +78,8 @@ export default {
       selectedID: null,
       srh_text: "",
       status: "true",
-      FillTags: []
+      FillTags: [],
+      textDecoration: {},
     };
   },
 
@@ -189,6 +195,12 @@ export default {
         this.tags = JSON.parse(storedTags);
         this.id_num = this.tags.length ? this.tags[this.tags.length - 1].id : 0;
       }
+    },
+     toggleTextDecoration(id) {
+      if (!this.textDecoration[id]) {
+        this.$set(this.textDecoration, id, 'none');
+      }
+      this.textDecoration[id] = this.textDecoration[id] === 'none' ? 'line-through' : 'none';
     },
 
     // Selected(tagId) {
