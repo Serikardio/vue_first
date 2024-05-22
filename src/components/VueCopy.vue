@@ -56,9 +56,9 @@
 
 <div>
     <ToDoApp :filteredTags="filteredTags"  :selectedID="selectedID"
-             :new_name="new_name"
+             :new_name="new_name" @toggleTextDecoration="toggleTextDecoration"
              @changeIcon="changeIcon" @removeTag="removeTag"
-             @toggleDetails="toggleDetails" @addTag="addTag"> </ToDoApp>
+             @toggleDetails="toggleDetails" @addTag="addTag" ></ToDoApp>
 </div>
   <!--  </div>-->
 </template>
@@ -151,6 +151,8 @@ export default {
         name,
         section,
         ready: false,
+        textDecoration: 'none',
+        isTextDecorated: false,
       };
       this.tags.push(tag);
       this.saveTags();
@@ -196,6 +198,7 @@ export default {
         this.id_num = this.tags.length ? this.tags[this.tags.length - 1].id : 0;
       }
     },
+
      toggleTextDecoration(id) {
       if (!this.textDecoration[id]) {
         this.$set(this.textDecoration, id, 'none');
