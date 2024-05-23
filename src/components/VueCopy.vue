@@ -55,11 +55,16 @@
 <!--    </div>-->
 
 <div>
-    <ToDoApp :filteredTags="filteredTags"  :selectedID="selectedID"
-             :new_name="new_name" @toggleTextDecoration="toggleTextDecoration"
+    <ToDoApp :selectedID="selectedID"
+             :new_name="new_name" :new_section="new_section"
+             :filteredTags="filteredTags" :toggleTextDecoration="toggleTextDecoration"
+             @toggleTextDecoration="toggleTextDecoration"
              @changeIcon="changeIcon" @removeTag="removeTag"
              @toggleDetails="toggleDetails" @addTag="addTag"
              @updateTag="updateTag" @DeleteTag="DeleteTag"
+             @l_new_name="handleNameUpdate" @l_new_section="HTU"
+             @Selected="Selected" @l_name="LN"
+
     ></ToDoApp>
 </div>
   <!--  </div>-->
@@ -81,7 +86,6 @@ export default {
       srh_text: "",
       status: "true",
       FillTags: [],
-      textDecoration: {},
     };
   },
 
@@ -109,6 +113,15 @@ export default {
       const readyValue = this.status === "true";
       this.FillTags = this.tags.filter(tag => tag.ready === readyValue);
 
+    },
+    handleNameUpdate(l_new_name) {
+      this.new_name = l_new_name;
+    },
+    HTU(l_new_section) {
+      this.new_section = l_new_section;
+    },
+    LN(l_name){
+      this.name = l_name
     },
 
     changeIcon(id){
@@ -147,17 +160,19 @@ export default {
 
     createTag({ section, name }) {
       let tag = {
-        id: ++this.id_num,
-        name,
-        section,
-        ready: false,
+      id: ++this.id_num,
+      name: {
+        text: name,
         textDecoration: 'none',
         isTextDecorated: false,
-      };
+      },
+      section,
+      ready: false,
+    };
+
       this.tags.push(tag);
       this.saveTags();
     },
-
     removeTag(id) {
       let index = this.tags.findIndex(tag => tag.id === id);
       if (index !== -1) {
@@ -199,11 +214,12 @@ export default {
       }
     },
 
-     toggleTextDecoration(id) {
-      if (!this.textDecoration[id]) {
-        this.$set(this.textDecoration, id, 'none');
+    toggleTextDecoration(tagId) {
+      let tag = this.tags.find(tag => tag.id === tagId);
+      if (tag) {
+        tag.name.textDecoration = tag.name.textDecoration === 'line-through' ? 'none' : 'line-through';
+        this.saveTags();
       }
-      this.textDecoration[id] = this.textDecoration[id] === 'none' ? 'line-through' : 'none';
     },
 
     Selected(tagId) {
@@ -214,6 +230,7 @@ export default {
       }
       this.saveTags();
     },
+
   },
 };
 </script>
