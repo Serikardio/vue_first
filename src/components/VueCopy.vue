@@ -63,9 +63,10 @@
              @toggleDetails="toggleDetails" @addTag="addTag"
              @updateTag="updateTag" @DeleteTag="DeleteTag"
              @l_new_name="handleNameUpdate" @l_new_section="HTU"
-             @Selected="Selected" @l_name="LN"
+             @Selected="Selected" @LocalName="LN"
 
     ></ToDoApp>
+  {{ name}}
 </div>
   <!--  </div>-->
 </template>
@@ -121,7 +122,7 @@ export default {
       this.new_section = l_new_section;
     },
     LN(l_name){
-      this.name = l_name
+      this.name = l_name;
     },
 
     changeIcon(id){
@@ -129,6 +130,7 @@ export default {
       if (tag) {
         tag.ready = !tag.ready;
         this.saveTags()
+        this.selectedID = null;
       }
     },
     toggleDetails(tagId) {
@@ -184,7 +186,8 @@ export default {
     updateTag(id) {
       let tag = this.tags.find(tag => tag.id === id);
       if (tag) {
-        tag.name = this.name;
+        console.log( (tag))
+        tag.name.text = this.name
         this.saveTags()
         this.name = ''
         this.selectedID = null;
