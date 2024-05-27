@@ -57,14 +57,16 @@
 <div>
     <ToDoApp :selectedID="selectedID"
              :new_name="new_name" :new_section="new_section"
+             :tags="tags"
              :filteredTags="filteredTags" :toggleTextDecoration="toggleTextDecoration"
              @toggleTextDecoration="toggleTextDecoration"
              @changeIcon="changeIcon" @removeTag="removeTag"
              @toggleDetails="toggleDetails" @addTag="addTag"
              @updateTag="updateTag" @DeleteTag="DeleteTag"
              @l_new_name="handleNameUpdate" @l_new_section="HTU"
+             @US="HTB"
              @Selected="Selected" @LocalName="LN"
-             @selectedID="MJ"
+             @selectedID="MJ" @addSection="addTag"
 
     ></ToDoApp>
 </div>
@@ -120,6 +122,11 @@ export default {
     },
     HTU(l_new_section) {
       this.new_section = l_new_section;
+      console.log(this.new_section)
+    },
+    HTB(new_section){
+      this.new_section = new_section;
+      console.log(this.new_section)
     },
     LN(l_name){
       this.name = l_name;
@@ -157,7 +164,6 @@ export default {
         if (!existingTag) {
           this.createTag({ name: newName, section: newSection });
           this.new_name = '';
-          this.new_section = '';
           this.saveTags();
         }
       }

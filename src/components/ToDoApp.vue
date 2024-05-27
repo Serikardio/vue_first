@@ -20,7 +20,7 @@
           </h2>
 
           <ul class="mb-8">
-            <li class="font-normal" v-for="tag in tags" :key="tag.id">
+            <li class="font-normal " v-for="tag in tags" :key="tag.id">
               <div :class="{'flex mb-2 items-center justify-between rounded-lg p-2': true, 'bg-opacity-40': tag.ready, 'bg-opacity-65': !tag.ready, 'text-black': !tag.ready, 'text-gray-500': tag.ready,}" class="bg-white">
                 <div class="flex items-center">
   <!--                ReadyBTN-->
@@ -39,13 +39,13 @@
                   </button>
 
                    <div>
-                    <p :style="{ 'text-decoration': tag.name.textDecoration }" @click="handleClick(tag.id)" class="-mt-0.5" >{{ tag.name.text }}</p>
+                    <p :style="{ 'text-decoration': tag.name.textDecoration }" class="-mt-0.5" >{{ tag.name.text }}</p>
                    </div>
 
                 </div>
 
                 <div>
-                  <button @click="selected(tag.id)" class="flex items-center hover:bg-gray-100 hover:bg-opacity-60 rounded">
+                  <button @click="selected(tag.id)" class="flex items-center hover:bg-gray-100 hover:bg-opacity-60 rounded text-gray-500 hover:text-black">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none">
                       <circle cx="18" cy="12" r="1.5" transform="rotate(90 18 12)" fill="currentColor"/>
                       <circle cx="12" cy="12" r="1.5" transform="rotate(90 12 12)" fill="currentColor"/>
@@ -55,14 +55,22 @@
                 </div>
               </div>
 
-              <div  v-show="selectedID === tag.id" class="absolute ml-2 rounded w-auto p-2 h-auto bg-white bg-opacity-85 -mt-3 " style="right: 470px;" >
+              <div  v-if="selectedID === tag.id" class="absolute ml-2 rounded w-auto p-2 h-auto bg-white bg-opacity-85 -mt-3" style="right: 470px;" >
                 <button @click="toggleDiv(tag.id)" class="text-sm rounded w-full flex items-center my-1 px-1 py-0.5 hover:bg-gray-100">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none">
                      <path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   Edit task
                 </button>
-                <button @click="handleClick(tag.id)" class="text-sm rounded flex items-center px-1 my-1 py-0.5 hover:bg-gray-100 w-full">
+                <button v-if="tag.ready" @click="handleClick(tag.id)" class="text-sm rounded flex items-center px-1 my-1 py-0.5 hover:bg-gray-100 w-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white" viewBox="0 -0.5 25 25" fill="black">
+                     <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                     <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Mark as uncompleted
+                </button>
+
+                <button v-else @click="handleClick(tag.id)" class="text-sm rounded flex items-center px-1 my-1 py-0.5 hover:bg-gray-100 w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white" viewBox="0 -0.5 25 25" fill="black">
                      <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                      <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -77,13 +85,20 @@
                 </button>
               </div>
               <div v-if="show === tag.id" class=" flex items-center my-1">
-                    <input v-model="l_name"
-                           @input="LocalName"
-                           class="border rounded flex items-center h-6 px-2"
-                           placeholder="Name">
+<!--                        tag.name.text-->
+                    <input
+                        value="tag.name.text"
+                        v-model="l_name"
+                        @input="LocalName"
+                        class="border rounded flex items-center h-6 px-2 outline-none"
+                        placeholder="Name">
                     <button class="flex items-center justify-center mx-1 w-20 h-6 bg-blue-500 text-white rounded hover:bg-blue-700"
                             @click="updateTag(tag.id)">
                       Update
+                    </button>
+                    <button class="flex items-center justify-center mx-1 w-20 h-6 bg-blue-500 text-white rounded hover:bg-blue-700"
+                            @click="cls_btn">
+                      Cancel
                     </button>
               </div>
             </li>
@@ -95,13 +110,17 @@
              class="flex items-center "
              style="position: absolute; top: 50%;
                     left: 50%; transform: translate(-50%, -50%);">
-          <input v-model="l_new_section"
-                     @input="updateSection"
-                     class="border flex items-center h-10 px-2 rounded-br-none rounded-tr-none rounded"
+          <input v-model="new_section"
+                 @input="US"
+                     class="border flex items-center h-10 px-2 rounded-br-none rounded-tr-none outline-none rounded"
                      placeholder="Section">
+          <button @click="addSection"
+                  class="flex items-center justify-center w-20 h-10 bg-black text-white hover:bg-blue-500">
+            Add
+          </button>
           <button @click="closeModal"
-                  class="flex items-center justify-center w-20 h-10 bg-black rounded-bl-none rounded-tl-none text-white rounded hover:bg-blue-500">
-            Close
+                  class="flex items-center ml-2 rounded justify-center w-20 h-10 bg-black text-white hover:bg-blue-500">
+            Cancel
           </button>
         </div>
 
@@ -110,14 +129,14 @@
 
              <input v-model="l_new_name"
                     @input="updateName"
-                    class="border rounded flex items-center rounded-br-none rounded-tr-none w-96 h-10 px-2 py-2"
+                    class="border rounded flex items-center rounded-br-none outline-none rounded-tr-none w-96 h-10 px-2 py-2"
                     placeholder="What do you need to do?">
 
              <select v-model="l_new_section"
                      @change="handleSelectChange"
-                     class="border flex items-center h-10 w-48 px-2">
+                     class="border flex items-center h-10 w-48 px-2 outline-none">
 
-               <option v-for="(tags, section) in filteredTags" :key="section" :value="section">
+               <option v-for="(tags, section) in filteredTags" :key="section" :value="section"  >
                   {{ section }}
                </option>
 
@@ -143,7 +162,7 @@
 
 <script>
   export default {
-    props: ["selectedID", "filteredTags", "toggleTextDecoration"],
+    props: ["selectedID", "filteredTags", "toggleTextDecoration" , "tags"],
 
     data() {
       return {
@@ -151,7 +170,7 @@
         l_name:"",
         l_new_name: "",
         l_new_section: "",
-        selectedSection:"",
+        new_section:"",
         isModalOpen: false,
         isUpdateOpen:false,
       };
@@ -161,9 +180,6 @@
       handleClick(id) {
         this.changeIcon(id);
         this.toggleTextDecoration(id);
-      },
-      Section(){
-        this.l_new_section = this.selectedSection;
       },
       handleSelectChange(event) {
         if (event.target.value === 'New') {
@@ -176,11 +192,19 @@
       updateName() {
       this.$emit('l_new_name', this.l_new_name);
       },
+      cls_btn(){
+        this.show = null;
+        this.l_name ="";
+      },
       LocalName() {
       this.$emit('LocalName', this.l_name);
       },
       updateSection() {
       this.$emit('l_new_section', this.l_new_section);
+      console.log(this.new_section)
+      },
+      US(){
+        this.$emit('US', this.new_section );
       },
       closeModal() {
         this.isModalOpen = false;
@@ -205,12 +229,17 @@
       },
       addTag(){
         this.$emit("addTag");
-        this.l_new_name = ''
-        this.l_new_section = '';
+        this.l_new_name = '';
+      },
+      addSection(){
+        this.$emit("addSection");
+        this.isModalOpen = false
+        this.new_section = "";
       },
       toggleDiv(tagId) {
         this.show = this.show === tagId ? null : tagId
         this.selected(tagId);
+        this.l_name = (this.tags.find(tag => tag.id === tagId) || {}).name.text;
       },
     },
 }
