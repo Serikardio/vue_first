@@ -8,19 +8,20 @@
         </svg>
       </div>
       <h1 class="text-2xl font-medium">Todo App</h1>
+
     </div>
 
     <div class="flex items-center justify-center">
-      <div v-if="filteredTags" style="width: 625px;" class="">
+      <div v-if="filteredTags" style="width: 625px;">
         <div style="height: 550px;"  class="overflow-y-scroll  custom-scrollbar">
-          <div v-for="(tags, section) in filteredTags"  v-bind:key="section" class="section">
+          <div v-for="(tags, section) in filteredTags" v-bind:key="section" class="section">
 
-          <h2 class=" flex items-center font-medium my-2 text-xl">
+          <h2 class=" flex items-center font-medium my-2 text-xl" >
              {{ section }}
           </h2>
 
           <ul class="mb-8">
-            <li class="font-normal " v-for="tag in tags" :key="tag.id">
+            <li class="font-normal " v-for="tag in tags" :key="tag.id" >
               <div :class="{'flex mb-2 items-center justify-between rounded-lg p-2': true, 'bg-opacity-40': tag.ready, 'bg-opacity-65': !tag.ready, 'text-black': !tag.ready, 'text-gray-500': tag.ready,}" class="bg-white">
                 <div class="flex items-center">
   <!--                ReadyBTN-->
@@ -55,7 +56,7 @@
                 </div>
               </div>
 
-              <div  v-if="selectedID === tag.id" class="absolute ml-2 rounded w-auto p-2 h-auto bg-white bg-opacity-85 -mt-3" style="right: 470px;" >
+              <div  ref="myDiv" @click="handleDivClick" v-if="selectedID === tag.id" class="absolute ml-2 rounded w-auto p-2 h-auto bg-white bg-opacity-85 -mt-3" style="right: 470px;" >
                 <button @click="toggleDiv(tag.id)" class="text-sm rounded w-full flex items-center my-1 px-1 py-0.5 hover:bg-gray-100">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none">
                      <path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -90,7 +91,7 @@
                         value="tag.name.text"
                         v-model="l_name"
                         @input="LocalName"
-                        class="border rounded flex items-center h-6 px-2 outline-none"
+                        class="border rounded flex items-center h-auto px-2 outline-none"
                         placeholder="Name">
                     <button class="flex items-center justify-center mx-1 w-20 h-6 bg-blue-500 text-white rounded hover:bg-blue-700"
                             @click="updateTag(tag.id)">
@@ -175,7 +176,6 @@
         isUpdateOpen:false,
       };
     },
-
     methods:{
       handleClick(id) {
         this.changeIcon(id);
@@ -198,6 +198,12 @@
       },
       LocalName() {
       this.$emit('LocalName', this.l_name);
+      },
+      handleDivClick(event) {
+        if (this.$refs.myDiv && !this.$refs.myDiv.contains(event.target)) {
+                // Отправляем событие родителю для закрытия дива
+                this.$emit('closeDiv');
+            }
       },
       updateSection() {
       this.$emit('l_new_section', this.l_new_section);
@@ -226,6 +232,9 @@
         this.l_name = ""
         this.show = null
         ;
+      },
+      createSection(){
+        this.$emit("createSection");
       },
       addTag(){
         this.$emit("addTag");

@@ -66,7 +66,9 @@
              @l_new_name="handleNameUpdate" @l_new_section="HTU"
              @US="HTB"
              @Selected="Selected" @LocalName="LN"
-             @selectedID="MJ" @addSection="addTag"
+             @selectedID="MJ" @addSection="ADDTag"
+             @closeDiv="closeDivHandler"
+
 
     ></ToDoApp>
 </div>
@@ -112,10 +114,9 @@ export default {
   },
 
   methods: {
-    applyFilter() {
-      const readyValue = this.status === "true";
-      this.FillTags = this.tags.filter(tag => tag.ready === readyValue);
-
+    closeDivHandler() {
+      // Логика закрытия дива
+      this.selectedID = null; // или другая логика закрытия дива
     },
     handleNameUpdate(l_new_name) {
       this.new_name = l_new_name;
@@ -167,6 +168,19 @@ export default {
           this.saveTags();
         }
       }
+      else (
+            alert("Вы не выбрали Секцию или имя")
+        );
+    },
+    ADDTag() {
+      const newSection = this.new_section.trim();
+      if ( newSection !== '') {
+        const existingTag = this.tags.find(tag => tag.section === newSection);
+        if (!existingTag) {
+          this.createSection({section: newSection });
+          this.saveTags();
+        }
+      }
     },
 
     createTag({ section, name }) {
@@ -180,7 +194,20 @@ export default {
       section,
       ready: false,
     };
-
+      this.tags.push(tag);
+      this.saveTags();
+    },
+    createSection({ section }) {
+      let tag = {
+      id: ++this.id_num,
+      name: {
+        text: "Delete me!",
+        textDecoration: 'none',
+        isTextDecorated: false,
+      },
+      section,
+      ready: false,
+    };
       this.tags.push(tag);
       this.saveTags();
     },
