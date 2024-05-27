@@ -64,9 +64,9 @@
              @updateTag="updateTag" @DeleteTag="DeleteTag"
              @l_new_name="handleNameUpdate" @l_new_section="HTU"
              @Selected="Selected" @LocalName="LN"
+             @selectedID="MJ"
 
     ></ToDoApp>
-  {{ name}}
 </div>
   <!--  </div>-->
 </template>
@@ -123,6 +123,9 @@ export default {
     },
     LN(l_name){
       this.name = l_name;
+    },
+    MJ(){
+        this.selectedID = null;
     },
 
     changeIcon(id){
