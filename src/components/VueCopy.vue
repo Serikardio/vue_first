@@ -57,7 +57,7 @@
 <div>
     <ToDoApp :selectedID="selectedID"
              :new_name="new_name" :new_section="new_section"
-             :tags="tags"
+             :tags="tags" :allSections="allSections"
              :filteredTags="filteredTags" :toggleTextDecoration="toggleTextDecoration"
              @toggleTextDecoration="toggleTextDecoration"
              @changeIcon="changeIcon" @removeTag="removeTag"
@@ -68,11 +68,8 @@
              @Selected="Selected" @LocalName="LN"
              @selectedID="MJ" @addSection="ADDTag"
              @closeDiv="closeDivHandler"
-
-
     ></ToDoApp>
 </div>
-  <!--  </div>-->
 </template>
 
 <script>
@@ -95,16 +92,20 @@ export default {
   },
 
   computed: {
-    groupedTags() {
-      return this.groupBySection(this.tags);
+    allSections() {
+      const sections = this.groupBySection(this.tags);
+      return sections;
     },
-
+    groupedTags() {
+      const validTags = this.tags.filter(tag => tag.name.text.trim() !== '');
+      return this.groupBySection(validTags);
+    },
     filteredTags() {
       if (!this.srh_text || this.srh_text.trim() === "") {
         return this.groupedTags;
       }
 
-      let filtered = this.tags.filter(tag => tag.name.toLowerCase().includes(this.srh_text.toLowerCase()));
+      let filtered = this.tags.filter(tag => tag.name.text.trim() !== '' && tag.name.text.toLowerCase().includes(this.srh_text.toLowerCase()));
       return this.groupBySection(filtered);
     },
   },
@@ -114,6 +115,14 @@ export default {
   },
 
   methods: {
+    // deleteSectionsWithEmptyTags() {
+    //   const tagsWithEmptyNames = this.tags.filter(tag => tag.name.text.trim() === "");
+    //   const sectionsToDelete = new Set(tagsWithEmptyNames.map(tag => tag.section));
+    //
+    //   const filteredTags = this.tags.filter(tag => !sectionsToDelete.has(tag.section));
+    //
+    //   this.tags = filteredTags;
+    // },
     closeDivHandler() {
       // Логика закрытия дива
       this.selectedID = null; // или другая логика закрытия дива
@@ -201,7 +210,7 @@ export default {
       let tag = {
       id: ++this.id_num,
       name: {
-        text: "Delete me!",
+        text: "",
         textDecoration: 'none',
         isTextDecorated: false,
       },
