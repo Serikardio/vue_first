@@ -69,6 +69,8 @@
              @selectedID="MJ" @addSection="ADDTag"
              @closeDiv="closeDivHandler"
     ></ToDoApp>
+
+  <router-view></router-view>
 </div>
 </template>
 

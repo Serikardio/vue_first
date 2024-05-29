@@ -1,9 +1,14 @@
 <template>
   <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
     <div class="modal">
-      <h2>Информация о задаче</h2>
+      <div class="flex items-center justify-between">
+        <h2>Info</h2>
+        <button @click="closeModal">Закрыть</button>
+      </div>
+      <p>Секция: {{selectedTaskSection}}</p>
       <p>Описание задачи: {{ taskDescription }}</p>
-      <button @click="closeModal">Закрыть</button>
+      <p>ID: {{ selectedTaskId }}</p>
+      <p>Ready: {{ selectedTaskReady }}</p>
     </div>
   </div>
 </template>
@@ -18,7 +23,19 @@ export default {
     taskDescription: {
       type: String,
       required: true
-    }
+    },
+    selectedTaskId:{
+      type: String,
+      required: true
+    },
+    selectedTaskReady:{
+      type: String,
+      required: true
+    },
+    selectedTaskSection:{
+      type: String,
+      required: true
+    },
   },
   watch: {
     isVisible(value) {

@@ -1,27 +1,25 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Router from 'vue-router';
 import VueCopy from "@/components/VueCopy.vue";
 import TagInfo from "@/components/TagInfo.vue";
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
-const routes = [
-  {
-    path: '/',
-    name: 'TodoApp',
-    component: VueCopy
-  },
-  {
-    path: '/info/:id',
-    name: 'ModalInfo',
-    component: TagInfo
-  }
-]
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: VueCopy,
+      children: [
+          {
+          path: '/task/:description',
+          name: 'task',
+          component: TagInfo,
+          meta: { modal: true }
+        }
+      ]
+    },
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
-
-export default router
+  ]
+});
