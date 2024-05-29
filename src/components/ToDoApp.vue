@@ -77,7 +77,7 @@
                   </button>
 
                   <button class="text-sm flex rounded items-center my-1 px-1 py-0.5  hover:bg-gray-100 w-full"
-                          @click="goToTagInfo">
+                          @click="openModal(tag)" >
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-5 mr-2 text-black" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
                       <path d="M12 17V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -166,15 +166,21 @@
         </div>
       </div>
     </div>
+    <TagInfo v-if="isModalVisible" :isVisible="isModalVisible" :taskDescription="selectedTaskDescription" @close="isModalVisible = false" />
   </div>
 </template>
 
 <script>
+  import TagInfo from "@/components/TagInfo.vue";
+
   export default {
+    components: {TagInfo},
     props: ["selectedID", "filteredTags", "toggleTextDecoration" , "tags", "allSections"],
 
     data() {
       return {
+        isModalVisible: false,
+        selectedTaskDescription: '',
         show: null,
         l_name:"",
         l_new_name: "",
@@ -189,8 +195,9 @@
         this.changeIcon(id);
         this.toggleTextDecoration(id);
       },
-      goToTagInfo(){
-        this.$router.push('/one')
+      openModal(tag) {
+        this.selectedTaskDescription = tag.name.text
+        this.isModalVisible = true
       },
       handleSelectChange(event) {
         if (event.target.value === 'New') {

@@ -6,13 +6,22 @@ import TagInfo from "@/components/TagInfo.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: VueCopy },
-  { path: '/one', component: TagInfo },
-];
+  {
+    path: '/',
+    name: 'TodoApp',
+    component: VueCopy
+  },
+  {
+    path: '/info/:id',
+    name: 'ModalInfo',
+    component: TagInfo
+  }
+]
 
 const router = new VueRouter({
-  mode: 'hash', // Использование хэш-режима (history)
-  routes,
-});
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+})
 
-export default router;
+export default router
