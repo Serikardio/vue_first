@@ -8,114 +8,110 @@
         </svg>
       </div>
       <h1 class="text-2xl font-medium">Todo App</h1>
-
     </div>
 
     <div class="flex items-center justify-center">
       <div v-if="filteredTags" style="width: 625px;">
         <div style="height: 550px;"  class="overflow-y-scroll  custom-scrollbar">
           <div v-for="(tags, section) in filteredTags" v-bind:key="section" class="section">
+            <h2 class=" flex items-center font-medium my-2 text-xl">
+               {{ section }}
+            </h2>
+            <ul class="mb-8">
+              <li class="font-normal " v-for="tag in tags" :key="tag.id" >
+                <div :class="{'flex mb-2 items-center justify-between rounded-lg p-2': true, 'bg-opacity-40': tag.ready, 'bg-opacity-65': !tag.ready, 'text-black': !tag.ready, 'text-gray-500': tag.ready,}" class="bg-white">
+                  <div class="flex items-center">
+    <!--                ReadyBTN-->
+                    <button v-if="tag.ready" @click="handleClick(tag.id)">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" viewBox="0 -0.5 25 25" fill="black">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
 
-          <h2 class=" flex items-center font-medium my-2 text-xl" >
-             {{ section }}
-          </h2>
+                    <button v-else @click="handleClick(tag.id)">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400" viewBox="0 -0.5 25 25" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
 
-          <ul class="mb-8">
-            <li class="font-normal " v-for="tag in tags" :key="tag.id" >
-              <div :class="{'flex mb-2 items-center justify-between rounded-lg p-2': true, 'bg-opacity-40': tag.ready, 'bg-opacity-65': !tag.ready, 'text-black': !tag.ready, 'text-gray-500': tag.ready,}" class="bg-white">
-                <div class="flex items-center">
-  <!--                ReadyBTN-->
-                  <button v-if="tag.ready" @click="handleClick(tag.id)">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" viewBox="0 -0.5 25 25" fill="black">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
+                    <div>
+                      <p :style="{ 'text-decoration': tag.name.textDecoration }" class="-mt-0.5" >{{ tag.name.text }}</p>
+                    </div>
 
-                  <button v-else @click="handleClick(tag.id)">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400" viewBox="0 -0.5 25 25" fill="none">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
+                  </div>
 
-                   <div>
-                    <p :style="{ 'text-decoration': tag.name.textDecoration }" class="-mt-0.5" >{{ tag.name.text }}</p>
-                   </div>
-
+                  <div>
+                    <button @click="selected(tag.id)" class="flex items-center hover:bg-gray-100 hover:bg-opacity-60 rounded text-gray-500 hover:text-black">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                        <circle cx="18" cy="12" r="1.5" transform="rotate(90 18 12)" fill="currentColor"/>
+                        <circle cx="12" cy="12" r="1.5" transform="rotate(90 12 12)" fill="currentColor"/>
+                        <circle cx="6 " cy="12" r="1.5" transform="rotate(90 6  12)" fill="currentColor"/>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
 
-                <div>
-                  <button @click="selected(tag.id)" class="flex items-center hover:bg-gray-100 hover:bg-opacity-60 rounded text-gray-500 hover:text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                      <circle cx="18" cy="12" r="1.5" transform="rotate(90 18 12)" fill="currentColor"/>
-                      <circle cx="12" cy="12" r="1.5" transform="rotate(90 12 12)" fill="currentColor"/>
-                      <circle cx="6 " cy="12" r="1.5" transform="rotate(90 6  12)" fill="currentColor"/>
+                <div  ref="myDiv" @click="handleDivClick" v-if="selectedID === tag.id" class="absolute ml-2 rounded w-auto p-2 h-auto bg-white bg-opacity-85 -mt-3" style="right: 470px;" >
+                  <button @click="toggleDiv(tag.id)" class="text-sm rounded w-full flex items-center my-1 px-1 py-0.5 hover:bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none">
+                       <path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                    Edit task
+                  </button>
+                  <button v-if="tag.ready" @click="handleClick(tag.id)" class="text-sm rounded flex items-center px-1 my-1 py-0.5 hover:bg-gray-100 w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white" viewBox="0 -0.5 25 25" fill="black">
+                       <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                       <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Mark as uncompleted
+                  </button>
+
+                  <button v-else @click="handleClick(tag.id)" class="text-sm rounded flex items-center px-1 my-1 py-0.5 hover:bg-gray-100 w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white" viewBox="0 -0.5 25 25" fill="black">
+                       <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                       <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Mark as completed
+                  </button>
+
+                  <button class="text-sm flex rounded items-center my-1 px-1 py-0.5  hover:bg-gray-100 w-full"
+                          @click="goToTagInfo">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-5 mr-2 text-black" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                      <path d="M12 17V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="currentColor"/>
+                    </svg>
+                    Info
+                  </button>
+
+                  <button @click="removeTag(tag.id)" class="text-sm flex rounded items-center my-1 px-1 py-0.5 text-red-500 hover:bg-red-100 w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 mr-2 text-red-500 h-4" viewBox="0 0 56 56">
+                      <path d="M 11.6406 14.6641 L 13.1406 48.9062 C 13.2578 51.8359 15.0156 53.4297 17.8984 53.4297 L 38.125 53.4297 C 41.0078 53.4297 42.7656 51.8359 42.8828 48.9062 L 44.3828 14.6641 L 47.0781 14.6641 C 48.0391 14.6641 48.8125 13.8672 48.8125 12.9063 C 48.8125 11.9453 48.0391 11.1250 47.0781 11.1250 L 37.4453 11.1250 L 37.4453 7.7734 C 37.4453 4.5625 35.3125 2.5703 32.2891 2.5703 L 23.6640 2.5703 C 20.6406 2.5703 18.5313 4.5625 18.5313 7.7734 L 18.5313 11.1250 L 8.9453 11.1250 C 8.0078 11.1250 7.1875 11.9453 7.1875 12.9063 C 7.1875 13.8672 8.0078 14.6641 8.9453 14.6641 Z M 21.7187 7.7734 C 21.7187 6.4375 22.7031 5.5000 24.1094 5.5000 L 31.8672 5.5000 C 33.2969 5.5000 34.2813 6.4375 34.2813 7.7734 L 34.2813 11.1250 L 21.7187 11.1250 Z M 35.6172 48.6484 C 34.7031 48.6484 34.0703 47.8516 34.0938 46.8906 L 35.0547 19.7031 C 35.1016 18.7656 35.7813 17.9922 36.625 17.9922 C 37.4922 17.9922 38.1953 18.7422 38.1719 19.7031 L 37.1172 46.9141 C 37.0938 47.9219 36.4844 48.6484 35.6172 48.6484 Z M 20.4062 48.6484 C 19.5391 48.6484 18.9297 47.9219 18.9062 46.9141 L 17.8516 19.7031 C 17.8281 18.7187 18.5313 17.9922 19.3984 17.9922 C 20.2422 17.9922 20.9453 18.7656 20.9687 19.7031 L 21.9297 46.8906 C 21.9531 47.8516 21.3203 48.6484 20.4062 48.6484 Z M 29.6172 46.8906 C 29.6172 47.8516 28.8672 48.6484 28.0234 48.6484 C 27.1797 48.6484 26.4297 47.8516 26.4297 46.8906 L 26.4297 19.7031 C 26.4297 18.7656 27.1797 17.9922 28.0234 17.9922 C 28.8672 17.9922 29.6406 18.7656 29.6406 19.7031 Z"/>
+                    </svg>
+                    Delete task
                   </button>
                 </div>
-              </div>
-
-              <div  ref="myDiv" @click="handleDivClick" v-if="selectedID === tag.id" class="absolute ml-2 rounded w-auto p-2 h-auto bg-white bg-opacity-85 -mt-3" style="right: 470px;" >
-                <button @click="toggleDiv(tag.id)" class="text-sm rounded w-full flex items-center my-1 px-1 py-0.5 hover:bg-gray-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none">
-                     <path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Edit task
-                </button>
-                <button v-if="tag.ready" @click="handleClick(tag.id)" class="text-sm rounded flex items-center px-1 my-1 py-0.5 hover:bg-gray-100 w-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white" viewBox="0 -0.5 25 25" fill="black">
-                     <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                     <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Mark as uncompleted
-                </button>
-
-                <button v-else @click="handleClick(tag.id)" class="text-sm rounded flex items-center px-1 my-1 py-0.5 hover:bg-gray-100 w-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white" viewBox="0 -0.5 25 25" fill="black">
-                     <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 12.0002C5.50024 8.66068 7.85944 5.78639 11.1348 5.1351C14.4102 4.48382 17.6895 6.23693 18.9673 9.32231C20.2451 12.4077 19.1655 15.966 16.3887 17.8212C13.6119 19.6764 9.91127 19.3117 7.55 16.9502C6.23728 15.6373 5.49987 13.8568 5.5 12.0002Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                     <path d="M9 12.0002L11.333 14.3332L16 9.66724" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Mark as completed
-                </button>
-
-                <button class="text-sm flex rounded items-center my-1 px-1 py-0.5  hover:bg-gray-100 w-full"
-                        @click="goToTagInfo"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-5 mr-2 text-black" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                    <path d="M12 17V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="currentColor"/>
-                  </svg>
-                  Info
-                </button>
-
-                <button @click="removeTag(tag.id)" class="text-sm flex rounded items-center my-1 px-1 py-0.5 text-red-500 hover:bg-red-100 w-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 mr-2 text-red-500 h-4" viewBox="0 0 56 56">
-                    <path d="M 11.6406 14.6641 L 13.1406 48.9062 C 13.2578 51.8359 15.0156 53.4297 17.8984 53.4297 L 38.125 53.4297 C 41.0078 53.4297 42.7656 51.8359 42.8828 48.9062 L 44.3828 14.6641 L 47.0781 14.6641 C 48.0391 14.6641 48.8125 13.8672 48.8125 12.9063 C 48.8125 11.9453 48.0391 11.1250 47.0781 11.1250 L 37.4453 11.1250 L 37.4453 7.7734 C 37.4453 4.5625 35.3125 2.5703 32.2891 2.5703 L 23.6640 2.5703 C 20.6406 2.5703 18.5313 4.5625 18.5313 7.7734 L 18.5313 11.1250 L 8.9453 11.1250 C 8.0078 11.1250 7.1875 11.9453 7.1875 12.9063 C 7.1875 13.8672 8.0078 14.6641 8.9453 14.6641 Z M 21.7187 7.7734 C 21.7187 6.4375 22.7031 5.5000 24.1094 5.5000 L 31.8672 5.5000 C 33.2969 5.5000 34.2813 6.4375 34.2813 7.7734 L 34.2813 11.1250 L 21.7187 11.1250 Z M 35.6172 48.6484 C 34.7031 48.6484 34.0703 47.8516 34.0938 46.8906 L 35.0547 19.7031 C 35.1016 18.7656 35.7813 17.9922 36.625 17.9922 C 37.4922 17.9922 38.1953 18.7422 38.1719 19.7031 L 37.1172 46.9141 C 37.0938 47.9219 36.4844 48.6484 35.6172 48.6484 Z M 20.4062 48.6484 C 19.5391 48.6484 18.9297 47.9219 18.9062 46.9141 L 17.8516 19.7031 C 17.8281 18.7187 18.5313 17.9922 19.3984 17.9922 C 20.2422 17.9922 20.9453 18.7656 20.9687 19.7031 L 21.9297 46.8906 C 21.9531 47.8516 21.3203 48.6484 20.4062 48.6484 Z M 29.6172 46.8906 C 29.6172 47.8516 28.8672 48.6484 28.0234 48.6484 C 27.1797 48.6484 26.4297 47.8516 26.4297 46.8906 L 26.4297 19.7031 C 26.4297 18.7656 27.1797 17.9922 28.0234 17.9922 C 28.8672 17.9922 29.6406 18.7656 29.6406 19.7031 Z"/>
-                  </svg>
-                  Delete task
-                </button>
-              </div>
-              <div v-if="show === tag.id" class=" flex items-center my-1">
-<!--                        tag.name.text-->
-                    <input
-                        value="tag.name.text"
-                        v-model="l_name"
-                        @input="LocalName"
-                        class="border rounded flex items-center h-auto px-2 outline-none"
-                        placeholder="Name">
-                    <button class="flex items-center justify-center mx-1 w-20 h-6 bg-blue-500 text-white rounded hover:bg-blue-700"
-                            @click="updateTag(tag.id)">
-                      Update
-                    </button>
-                    <button class="flex items-center justify-center mx-1 w-20 h-6 bg-blue-500 text-white rounded hover:bg-blue-700"
-                            @click="cls_btn">
-                      Cancel
-                    </button>
-              </div>
-            </li>
-          </ul>
+                <div v-if="show === tag.id" class=" flex items-center my-1">
+  <!--                        tag.name.text-->
+                      <input
+                          value="tag.name.text"
+                          v-model="l_name"
+                          @input="LocalName"
+                          class="border rounded flex items-center h-auto px-2 outline-none"
+                          placeholder="Name">
+                      <button class="flex items-center justify-center mx-1 w-20 h-6 bg-blue-500 text-white rounded hover:bg-blue-700"
+                              @click="updateTag(tag.id)">
+                        Update
+                      </button>
+                      <button class="flex items-center justify-center mx-1 w-20 h-6 bg-blue-500 text-white rounded hover:bg-blue-700"
+                              @click="cls_btn">
+                        Cancel
+                      </button>
+                </div>
+              </li>
+            </ul>
         </div>
         </div>
 

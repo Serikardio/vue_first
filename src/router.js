@@ -11,7 +11,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: 'hash', // Использование хэш-режима
+  mode: 'hash', // Использование хэш-режима (history)
   routes,
 });
 
