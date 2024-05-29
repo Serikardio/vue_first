@@ -81,7 +81,7 @@
                   </button>
 
                   <button class="text-sm flex rounded items-center my-1 px-1 py-0.5  hover:bg-gray-100 w-full"
-                          @click="openModal(tag)" >
+                          @click="goToTagInfo(tag.id, tag.ready, tag.name.text, tag.section)" >
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-5 mr-2 text-black" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
                       <path d="M12 17V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -169,17 +169,23 @@
            </div>
         </div>
       </div>
+<!--      <router-view :to="{name:'INFO',params:{description:'fffff'}}"></router-view>-->
     </div>
-    <TagInfo v-if="isModalVisible" :isVisible="isModalVisible" :taskDescription="selectedTaskDescription"
-             :selectedTaskId="selectedTaskId" :selectedTaskReady="selectedTaskReady" :selectedTaskSection="selectedTaskSection" @close="isModalVisible = false"/>
+
+<!--    <TagInfo v-if="isModalVisible" :isVisible="isModalVisible"-->
+<!--             :taskDescription="selectedTaskDescription" :selectedTaskId="selectedTaskId"-->
+<!--             :selectedTaskReady="selectedTaskReady" :selectedTaskSection="selectedTaskSection"-->
+<!--             @close="isModalVisible = false"/>-->
+
   </div>
 </template>
 
 <script>
-  import TagInfo from "@/components/TagInfo.vue";
+
+  // import TagInfo from "@/components/TagInfo.vue";
 
   export default {
-    components: {TagInfo},
+    // components: {TagInfo},
     props: ["selectedID", "filteredTags", "toggleTextDecoration" , "tags", "allSections"],
 
     data() {
@@ -203,6 +209,11 @@
         this.changeIcon(id);
         this.toggleTextDecoration(id);
       },
+      goToTagInfo(id, ready, name, section) {
+        // this.$router.push(`/task/${id}/`)
+      this.$router.push({ name: 'task', params: { id: id, ready: ready, name: name, section: section,} });
+      },
+      // @click="goToTagInfo(tag.id, tag.name.text, tag.selected)"
       openModal(tag) {
         this.selectedTaskDescription = tag.name.text
         this.selectedTaskId = tag.id

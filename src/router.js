@@ -13,7 +13,8 @@ export default new Router({
       component: VueCopy,
       children: [
           {
-          path: '/task/:description',
+          path: '/task/:id/',
+              // :description/:ready/:section
           name: 'task',
           component: TagInfo,
           meta: { modal: true }

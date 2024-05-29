@@ -7,6 +7,7 @@
 
 <script>
 
+
 export default {
   components: {
   },
@@ -18,8 +19,6 @@ export default {
 </script>
 
 <style>
-body.modal-open {
-  overflow: hidden;
-}
+
 </style>
 

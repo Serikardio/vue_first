@@ -1,77 +1,21 @@
 <template>
-<!--  <div class="ml-2">-->
-<!--    <p class="text-3xl pb-4">Vue test</p>-->
-
-<!--    <div>-->
-<!--      <p class="text-2xl font-medium pb-2">Search</p>-->
-
-<!--      <div class="flex items-center">-->
-<!--        <input v-model="srh_text" class="border rounded flex items-center px-2" placeholder="Name">-->
-<!--&lt;!&ndash;        @keydown.space.prevent &ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="my-2">-->
-<!--      <p class="text-2xl font-medium pb-2">Filter</p>-->
-<!--      <div class="flex items-center">-->
-<!--        <select v-model="status" class="w-48 h-8 border rounded ">-->
-<!--          <option value="true" >Выполненно</option>-->
-<!--          <option value="false" >Не выполненно</option>-->
-<!--        </select>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <button-->
-<!--            @click="applyFilter"-->
-<!--            class="flex items-center justify-center mt-2 mx-0.5 w-16 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700" >-->
-<!--          Поиск-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--&lt;!&ndash; Создать выбор по фильтру выполненно или нет&ndash;&gt;-->
-
-<!--    <div>-->
-<!--      {{ FillTags }}-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--      <p class="font-medium text-2xl my-1.5">Create a Tag</p>-->
-
-<!--      <input v-model="new_name" class="border rounded flex items-center px-2 mb-2" placeholder="Name">-->
-<!--      <input v-model="new_section" class="border rounded flex items-center px-2 mb-2" placeholder="Section">-->
-
-<!--      <div class="flex">-->
-
-<!--        <button v-on:click="addTag"-->
-<!--                class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">-->
-<!--          Create-->
-<!--        </button>-->
-
-<!--        <button v-on:click="DeleteTag"-->
-<!--                class="flex items-center justify-center mx-0.5 w-20 h-7 bg-blue-500 text-white rounded -mb-0.5 hover:bg-blue-700">-->
-<!--          Delete-->
-<!--        </button>-->
-
-<!--      </div>-->
-<!--    </div>-->
-
-<div>
-    <ToDoApp :selectedID="selectedID"
-             :new_name="new_name" :new_section="new_section"
-             :tags="tags" :allSections="allSections"
-             :filteredTags="filteredTags" :toggleTextDecoration="toggleTextDecoration"
-             @toggleTextDecoration="toggleTextDecoration"
-             @changeIcon="changeIcon" @removeTag="removeTag"
-             @toggleDetails="toggleDetails" @addTag="addTag"
-             @updateTag="updateTag" @DeleteTag="DeleteTag"
-             @l_new_name="handleNameUpdate" @l_new_section="HTU"
-             @US="HTB"
-             @Selected="Selected" @LocalName="LN"
-             @selectedID="MJ" @addSection="ADDTag"
-             @closeDiv="closeDivHandler"
-    ></ToDoApp>
-
-  <router-view></router-view>
-</div>
+  <div>
+      <ToDoApp :selectedID="selectedID"
+               :new_name="new_name" :new_section="new_section"
+               :tags="tags" :allSections="allSections"
+               :filteredTags="filteredTags" :toggleTextDecoration="toggleTextDecoration"
+               @toggleTextDecoration="toggleTextDecoration"
+               @changeIcon="changeIcon" @removeTag="removeTag"
+               @toggleDetails="toggleDetails" @addTag="addTag"
+               @updateTag="updateTag" @DeleteTag="DeleteTag"
+               @l_new_name="handleNameUpdate" @l_new_section="HTU"
+               @US="HTB" @closeDiv="closeDivHandler"
+               @Selected="Selected" @LocalName="LN"
+               @selectedID="MJ" @addSection="ADDTag"
+      />
+<!--    :to="{name:'INFO',params:{description:'fffff'}}"-->
+      <router-view ></router-view>
+  </div>
 </template>
 
 <script>

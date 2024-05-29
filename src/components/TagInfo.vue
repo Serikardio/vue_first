@@ -2,40 +2,24 @@
   <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
     <div class="modal">
       <div class="flex items-center justify-between">
-        <h2>Info</h2>
+        <h2>Информация</h2>
         <button @click="closeModal">Закрыть</button>
       </div>
-      <p>Секция: {{selectedTaskSection}}</p>
-      <p>Описание задачи: {{ taskDescription }}</p>
-      <p>ID: {{ selectedTaskId }}</p>
-      <p>Ready: {{ selectedTaskReady }}</p>
+      <p>Секция: {{ $route.params.section }}</p>
+      <p>Описание задачи: {{ $route.params.name}}</p>
+      <p>ID: {{ $route.params.id }}</p>
+      <p>Готовность: {{ $route.params.ready }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    isVisible: {
-      type: Boolean,
-      required: true
-    },
-    taskDescription: {
-      type: String,
-      required: true
-    },
-    selectedTaskId:{
-      type: String,
-      required: true
-    },
-    selectedTaskReady:{
-      type: String,
-      required: true
-    },
-    selectedTaskSection:{
-      type: String,
-      required: true
-    },
+  name:"INFO",
+  data() {
+    return {
+      isVisible: true
+    };
   },
   watch: {
     isVisible(value) {
@@ -48,7 +32,8 @@ export default {
   },
   methods: {
     closeModal() {
-      this.$emit('close')
+      this.$emit('close');
+      this.$router.push({ name: 'home' });
     }
   }
 }
