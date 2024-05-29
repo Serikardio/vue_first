@@ -56,7 +56,6 @@
                 <div  ref="myDiv"
                       @click="handleDivClick"
                       v-if="selectedID === tag.id"
-                      @click.self="selected(tag.id)"
                       class="absolute ml-2 rounded w-auto p-2 h-auto bg-white bg-opacity-85 -mt-3" style="right: 470px;" >
                   <button @click="toggleDiv(tag.id)" class="text-sm rounded w-full flex items-center my-1 px-1 py-0.5 hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none">
@@ -191,10 +190,6 @@
     data() {
       return {
         isModalVisible: false,
-        selectedTaskDescription: '',
-        selectedTaskId:'',
-        selectedTaskReady:"",
-        selectedTaskSection:'',
         show: null,
         l_name:"",
         l_new_name: "",
@@ -209,9 +204,13 @@
         this.changeIcon(id);
         this.toggleTextDecoration(id);
       },
+      closeMenu(){
+        this.isModalVisible = false
+      },
       goToTagInfo(id, ready, name, section) {
         // this.$router.push(`/task/${id}/`)
       this.$router.push({ name: 'task', params: { id: id, ready: ready, name: name, section: section,} });
+      // dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
       },
       // @click="goToTagInfo(tag.id, tag.name.text, tag.selected)"
       openModal(tag) {
@@ -233,7 +232,8 @@
       },
       cls_btn(){
         this.show = null;
-        this.l_name ="";
+        this.l_name =""
+        this.new_section ="";
       },
       LocalName() {
       this.$emit('LocalName', this.l_name);

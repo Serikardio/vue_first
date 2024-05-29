@@ -14,7 +14,6 @@ export default new Router({
       children: [
           {
           path: '/task/:id/',
-              // :description/:ready/:section
           name: 'task',
           component: TagInfo,
           meta: { modal: true }
