@@ -168,14 +168,7 @@
            </div>
         </div>
       </div>
-<!--      <router-view :to="{name:'INFO',params:{description:'fffff'}}"></router-view>-->
     </div>
-
-<!--    <TagInfo v-if="isModalVisible" :isVisible="isModalVisible"-->
-<!--             :taskDescription="selectedTaskDescription" :selectedTaskId="selectedTaskId"-->
-<!--             :selectedTaskReady="selectedTaskReady" :selectedTaskSection="selectedTaskSection"-->
-<!--             @close="isModalVisible = false"/>-->
-
   </div>
 </template>
 
@@ -209,7 +202,7 @@
       },
       goToTagInfo(id, ready, name, section) {
         // this.$router.push(`/task/${id}/`)
-      this.$router.push({ name: 'task', params: { id: id, ready: ready, name: name, section: section,} });
+        this.$router.push({ name: 'task', params: { id: id, ready: ready, name: name, section: section,} });
       // dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
       },
       // @click="goToTagInfo(tag.id, tag.name.text, tag.selected)"

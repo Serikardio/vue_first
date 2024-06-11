@@ -13,7 +13,6 @@
                @Selected="Selected" @LocalName="LN"
                @selectedID="MJ" @addSection="ADDTag"
       />
-<!--    :to="{name:'INFO',params:{description:'fffff'}}"-->
       <router-view ></router-view>
   </div>
 </template>
